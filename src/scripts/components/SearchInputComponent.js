@@ -6,6 +6,7 @@ const SearchInputComponent = {
     <div class="input-group">
         <input type="text"
                class="form-control"
+               placeholder="Enter your values.."
                :value="text"
                ref="searchInput"
                :maxlength="uiConfig.MaxInputChars"
