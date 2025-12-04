@@ -26,13 +26,14 @@ const LetterAdderComponent = {
             immediate: true,
             async handler(value) {
                 if (value === this.currentText) return;
+                
+                this.$emit('busy', true);
 
                 if (this.abortController) {
                     this.abortController.abort();
                 }
 
                 this.abortController = new AbortController();
-                this.$emit('busy', true);
                 this.currentText = value;
 
                 const normalized = this.uiService.normalizeTextInput(value);
@@ -63,7 +64,6 @@ const LetterAdderComponent = {
                 );
 
                 if (!results.length) {
-                    this.$emit('busy', false);
                     return;
                 }
 
