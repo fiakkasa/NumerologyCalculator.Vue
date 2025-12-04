@@ -18,19 +18,25 @@ const DigitAdderComponent = {
         return {
             currentText: '',
             steps: [],
-            result: ''
+            result: '',
+            abortController: null
         };
     },
     watch: {
         text: {
             immediate: true,
-            async handler(v) {
-                if (v === this.currentText) return;
+            async handler(value) {
+                if (value === this.currentText) return;
 
+                if (this.abortController) {
+                    this.abortController.abort();
+                }
+
+                this.abortController = new AbortController();
                 this.$emit('busy', true);
-                this.currentText = v;
+                this.currentText = value;
 
-                const normalized = this.uiService.normalizeTextInput(v);
+                const normalized = this.uiService.normalizeTextInput(value);
 
                 if (!normalized) {
                     this.result = '';
@@ -41,10 +47,30 @@ const DigitAdderComponent = {
                     return;
                 }
 
-                await this.uiService.inputDelay();
-                
-                const { result, steps } = await this.digitCalculatorService.calculate(normalized);
-                
+                const cancellation = new Promise((resolve, _) => {
+                    this.abortController.signal.addEventListener('abort', () => {
+                        resolve([]);
+                    }, { once: true });
+                });
+                const results = await Promise.race(
+                    [
+                        Promise.all(
+                            [
+                                this.digitCalculatorService.calculate(normalized),
+                                this.uiService.inputDelay()
+                            ]
+                        ),
+                        cancellation
+                    ]
+                );
+
+                if (!results.length) {
+                    this.$emit('busy', false);
+                    return;
+                }
+
+                const [{ result, steps }] = results;
+
                 this.result = result;
                 this.steps = steps;
                 this.$emit('busy', false);
