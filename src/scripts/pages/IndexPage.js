@@ -28,9 +28,9 @@ const IndexPage = {
             </div>
 
             <div class="px-3 pb-4" 
-                 :class="{ 'd-none': !trimmedText || !digitResult || !letterResult }">
+                 :class="{ 'd-none': !combinedResult }">
                 <digit-adder title="Combined Numeric and Letter Calculation"
-                             :text="digitResult + letterResult"
+                             :text="combinedResult"
                              @busy="combinedBusy = $event" />
             </div>
         </div>
@@ -50,6 +50,13 @@ const IndexPage = {
     computed: {
         loading() {
             return this.digitBusy || this.letterBusy || this.combinedBusy;
+        },
+        combinedResult() {
+            if(!this.trimmedText || !this.digitResult || !this.letterResult) {
+                return '';
+            }
+
+            return this.digitResult + this.letterResult;
         },
         searchInputContainerMarginTop() {
             if (this.trimmedText) {
