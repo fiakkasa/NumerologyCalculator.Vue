@@ -18,6 +18,19 @@ const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
     routes
 });
+const i18n = VueI18n.createI18n({
+    legacy: false,
+    locale: 'en-US',
+    fallbackLocale: 'en',
+    messages: {
+        en: {
+            enter_your_values: "Enter your values..",
+            digit_calculation: "Numeric Calculation",
+            letter_calculation: "Letter Calculation",
+            combined_calculation: "Combined Calculation"
+        }
+    }
+});
 
 const uiService = new NumerologyUiService(uiConfig);
 const digitCalculatorService = new NumerologyDigitCalculatorService(uiService);
@@ -25,10 +38,16 @@ const letterCalculatorService = new NumerologyLetterCalculatorService(uiService)
 const linksService = new NumerologyLinksService(linksConfig);
 
 const app = Vue.createApp({
-    template: `<router-view />`
+    template: `<router-view />`,
+    setup() {
+        const { t } = VueI18n.useI18n();
+
+        return { t };
+    }
 });
 
 app.use(router);
+app.use(i18n);
 
 app.component('adder-title', AdderTitleComponent);
 app.component('calculation-result', CalculationResultComponent);
@@ -44,6 +63,16 @@ app.provide('uiService', uiService);
 app.provide('digitCalculatorService', digitCalculatorService);
 app.provide('letterCalculatorService', letterCalculatorService);
 
+(async function init() {
+    try {
+        const locale = 'en-US';
+        const result = await fetch('localization/' + locale + '.json');
 
+        i18n.global.setLocaleMessage(locale, await result.json());
+        i18n.global.locale.value = locale;
+    } catch (error) {
+        console.error(error);
+    }
 
-app.mount('#app');
+    app.mount('#app');
+})();

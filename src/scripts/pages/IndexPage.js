@@ -13,7 +13,7 @@ const IndexPage = {
 
             <div class="px-3 pb-4" 
                  :class="{ 'd-none': !trimmedText || !digitResult }">
-                <digit-adder title="Numeric Calculation"
+                <digit-adder :title="$t('digit_calculation')"
                              :text="trimmedText"
                              @busy="digitBusy = $event"
                              @result="digitResult = $event" />
@@ -21,7 +21,7 @@ const IndexPage = {
 
             <div class="px-3 pb-4" 
                  :class="{ 'd-none': !trimmedText || !letterResult }">
-                <letter-adder title="Letter Calculation"
+                <letter-adder :title="$t('letter_calculation')"
                               :text="trimmedText"
                               @busy="letterBusy = $event"
                               @result="letterResult = $event" />
@@ -29,7 +29,7 @@ const IndexPage = {
 
             <div class="px-3 pb-4" 
                  :class="{ 'd-none': !combinedResult }">
-                <digit-adder title="Combined Numeric and Letter Calculation"
+                <digit-adder :title="$t('combined_calculation')"
                              :text="combinedResult"
                              @busy="combinedBusy = $event" />
             </div>
