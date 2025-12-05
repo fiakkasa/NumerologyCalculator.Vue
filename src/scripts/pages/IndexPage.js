@@ -52,7 +52,7 @@ const IndexPage = {
             return this.digitBusy || this.letterBusy || this.combinedBusy;
         },
         combinedResult() {
-            if(!this.trimmedText || !this.digitResult || !this.letterResult) {
+            if (!this.trimmedText || !this.digitResult || !this.letterResult) {
                 return '';
             }
 
@@ -65,7 +65,7 @@ const IndexPage = {
 
             let elementHeight = 0;
 
-            if(this.init) {
+            if (this.init) {
                 elementHeight = this.$refs.searchInputContainer?.offsetHeight ?? 87;
             }
 
@@ -73,22 +73,34 @@ const IndexPage = {
         }
     },
     beforeMount() {
-        this.text = this.normalizeText(
-            window.location.hash.trim().split('#')[1]
-        );
-        this.trimmedText = this.text.trim();
+        this.setTextItemsFromRoute();
     },
     mounted() {
         this.init = true;
     },
+    watch: {
+        $route(to, from) {
+            if (to === this.text) {
+                return;
+            }
+
+            this.setTextItemsFromRoute();
+        }
+    },
     methods: {
+        setTextItemsFromRoute() {
+            this.text = this.normalizeText(
+                this.$route.params.value
+            );
+            this.trimmedText = this.text.trim();
+        },
         normalizeText(text) {
             return (text || '').replaceAll('%20', ' ').replaceAll('.', ' ');
         },
         onTextChange(text) {
             this.text = this.normalizeText(text);
             this.trimmedText = this.text.trim();
-            window.location.hash = this.text;
+            this.$router.push(`/${this.text}`);
         }
     }
 };

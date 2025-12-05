@@ -9,14 +9,26 @@ const linksConfig = {
     Url: 'https://number.academy/numerology/{0}'
 };
 
+const routes = [
+    { path: '/:value', component: IndexPage },
+    { path: '/', component: IndexPage }
+];
+
+const router = VueRouter.createRouter({
+    history: VueRouter.createWebHashHistory(),
+    routes
+});
+
 const uiService = new NumerologyUiService(uiConfig);
 const digitCalculatorService = new NumerologyDigitCalculatorService(uiService);
 const letterCalculatorService = new NumerologyLetterCalculatorService(uiService);
 const linksService = new NumerologyLinksService(linksConfig);
 
 const app = Vue.createApp({
-    template: `<index-page />`
+    template: `<router-view />`
 });
+
+app.use(router);
 
 app.component('adder-title', AdderTitleComponent);
 app.component('calculation-result', CalculationResultComponent);
@@ -31,5 +43,7 @@ app.provide('linksService', linksService);
 app.provide('uiService', uiService);
 app.provide('digitCalculatorService', digitCalculatorService);
 app.provide('letterCalculatorService', letterCalculatorService);
+
+
 
 app.mount('#app');
