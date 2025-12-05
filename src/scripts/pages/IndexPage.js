@@ -2,37 +2,44 @@ const IndexPage = {
     inject: ['uiService'],
     template: `
         <div class="container">
-            <div class="px-3 pt-4">
+            <div class="search-input-container px-3 pt-4"
+                 :style="{ 'margin-top': searchInputContainerMarginTop }"
+                 ref="searchInputContainer">
                 <search-input :text="text"
                               :loading="loading"
                               :focus-on-load="true"
                               @update:text="onTextChange" />
             </div>
 
-            <div class="px-3 pb-4" :class="{ 'd-none': !text }">
+            <div class="px-3 pb-4" 
+                 :class="{ 'd-none': !trimmedText || !digitResult }">
                 <digit-adder title="Numeric Calculation"
-                             :text="text"
+                             :text="trimmedText"
                              @busy="digitBusy = $event"
                              @result="digitResult = $event" />
             </div>
 
-            <div class="px-3 pb-4" :class="{ 'd-none': !text }">
+            <div class="px-3 pb-4" 
+                 :class="{ 'd-none': !trimmedText || !letterResult }">
                 <letter-adder title="Letter Calculation"
-                              :text="text"
+                              :text="trimmedText"
                               @busy="letterBusy = $event"
                               @result="letterResult = $event" />
             </div>
 
-            <div class="px-3 pb-4" :class="{ 'd-none': !text || !combinedResult }">
+            <div class="px-3 pb-4" 
+                 :class="{ 'd-none': !trimmedText || !digitResult || !letterResult }">
                 <digit-adder title="Combined Numeric and Letter Calculation"
-                             :text="combinedResult"
+                             :text="digitResult + letterResult"
                              @busy="combinedBusy = $event" />
             </div>
         </div>
     `,
     data() {
         return {
+            init: false,
             text: '',
+            trimmedText: '',
             digitBusy: false,
             letterBusy: false,
             combinedBusy: false,
@@ -44,18 +51,28 @@ const IndexPage = {
         loading() {
             return this.digitBusy || this.letterBusy || this.combinedBusy;
         },
-        combinedResult() {
-            if (!this.digitResult || !this.letterResult) {
-                return '';
+        searchInputContainerMarginTop() {
+            if (this.trimmedText) {
+                return 'unset';
             }
 
-            return this.digitResult + this.letterResult;
+            let elementHeight = 0;
+
+            if(this.init) {
+                elementHeight = this.$refs.searchInputContainer?.offsetHeight ?? 87;
+            }
+
+            return `max(calc(50vh - ${elementHeight}px), 0px)`;
         }
     },
     beforeMount() {
         this.text = this.normalizeText(
             window.location.hash.trim().split('#')[1]
         );
+        this.trimmedText = this.text.trim();
+    },
+    mounted() {
+        this.init = true;
     },
     methods: {
         normalizeText(text) {
@@ -63,6 +80,7 @@ const IndexPage = {
         },
         onTextChange(text) {
             this.text = this.normalizeText(text);
+            this.trimmedText = this.text.trim();
             window.location.hash = this.text;
         }
     }

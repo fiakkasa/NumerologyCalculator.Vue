@@ -49,6 +49,10 @@ html, body {
     z-index: 10;
 }
 
+.search-input-container {
+    transition: 375ms ease-in-out all;
+}
+
 .card,
 .nc-input-container {
     background-color: transparent;
