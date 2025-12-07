@@ -1,0 +1,32 @@
+{
+  "name": "numerologycalculator.vue",
+  "version": "1.0.0",
+  "description": "Simple numerology calculator using Vue.JS!",
+  "main": "app.js",
+  "scripts": {
+    "tests": "CHROME_BIN=$(node -e \"console.log(require('puppeteer').executablePath())\") npx --no-install karma start",
+    "start": "npx --no-install lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiakkasa/NumerologyCalculator.Vue.git"
+  },
+  "keywords": [],
+  "author": "Adamos Fiakkas",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fiakkasa/NumerologyCalculator.Vue/issues"
+  },
+  "homepage": "https://github.com/fiakkasa/NumerologyCalculator.Vue#readme",
+  "devDependencies": {
+    "jasmine-core": "^5.13.0",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-jasmine": "^5.1.0",
+    "karma-junit-reporter": "^2.0.1",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma": "^6.4.4",
+    "lite-server": "^2.6.1",
+    "puppeteer": "^24.32.0"
+  }
+}

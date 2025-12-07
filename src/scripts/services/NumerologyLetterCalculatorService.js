@@ -1,7 +1,7 @@
 class NumerologyLetterCalculatorService {
     constructor(uiService) {
         this.uiService = uiService;
-        this.map = {
+        this.letterMap = {
             A: 1, J: 1, S: 1,
             B: 2, K: 2, T: 2,
             C: 3, L: 3, U: 3,
@@ -12,18 +12,29 @@ class NumerologyLetterCalculatorService {
             H: 8, Q: 8, Z: 8,
             I: 9, R: 9
         };
+        this.codePointsMap = {
+            '1': 1,
+            '2': 2,
+            '3': 3,
+            '4': 4,
+            '5': 5,
+            '6': 6,
+            '7': 7,
+            '8': 8,
+            '9': 9
+        };
     }
 
     toDeltaInt(character) {
-        return (character || '')[0].codePointAt(0) - 48;
-    }
-
-    toSumString(collection) {
-        return (collection || []).reduce((a, b) => a + b, 0).toString();
+        return this.codePointsMap[character] ?? 0;
     }
 
     toDeltaIntCollectionSequence(text) {
         return [...text].map(ch => this.toDeltaInt(ch));
+    }
+
+    toSumString(collection) {
+        return (collection || []).reduce((a, b) => a + b, 0).toString();
     }
 
     calculateSumAndStep(digits, sequence, equation) {
@@ -42,24 +53,23 @@ class NumerologyLetterCalculatorService {
         return new Promise(resolve => {
             setTimeout(() => {
                 const uiService = this.uiService;
-                const map = this.map;
                 const letters = [];
                 const digits = [];
                 const composed = [];
 
                 for (const ch of (text || '').toUpperCase()) {
-                    if (!map[ch]) {
+                    if (!this.letterMap[ch]) {
                         continue;
                     }
 
                     letters.push(ch);
-                    digits.push(map[ch]);
+                    digits.push(this.letterMap[ch]);
                     composed.push(
-                        uiService.composeCombinedItem(ch, map[ch])
+                        uiService.composeCombinedItem(ch, this.letterMap[ch])
                     );
                 }
 
-                if (!letters.length) {
+                if (!digits.length) {
                     return resolve({ result: '', steps: [] });
                 }
 
@@ -76,11 +86,11 @@ class NumerologyLetterCalculatorService {
                 steps.push(step);
 
                 while (result.length > 1) {
-                    const next = this.toDeltaIntCollectionSequence(result);
+                    const nextDigits = this.toDeltaIntCollectionSequence(result);
                     let { sum, step } = this.calculateSumAndStep(
-                        next,
-                        uiService.composeEntrySequence(next),
-                        uiService.composeEntryEquation(next)
+                        nextDigits,
+                        uiService.composeEntrySequence(nextDigits),
+                        uiService.composeEntryEquation(nextDigits)
                     );
 
                     result = sum;
