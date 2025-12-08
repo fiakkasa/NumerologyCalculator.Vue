@@ -38,30 +38,21 @@ class NumerologyDigitCalculatorService {
         return { sum, step };
     }
 
-    calculate(text) {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                let digits = [...(text || '')]
-                    .filter(ch => /\d/.test(ch))
-                    .map(ch => this.toDeltaInt(ch));
+    calculate(text, cancellationSignal) {
+        return new Promise(
+            (resolve, reject) => {
+                setTimeout(() => {
+                    let digits = [...(text || '')]
+                        .filter(ch => /\d/.test(ch))
+                        .map(ch => this.toDeltaInt(ch));
 
-                if (!digits.length) {
-                    return resolve({ result: '', steps: [] });
-                }
+                    if (!digits.length) {
+                        return resolve({ result: '', steps: [] });
+                    }
 
-                let result = '';
-                const steps = [];
+                    let result = '';
+                    const steps = [];
 
-                let { sum, step } = this.calculateSumAndStep(
-                    digits,
-                    this.uiService.composeEntrySequence(digits)
-                );
-
-                result = sum;
-                steps.push(step);
-
-                while (result.length > 1) {
-                    digits = this.toDeltaIntCollectionSequence(result);
                     let { sum, step } = this.calculateSumAndStep(
                         digits,
                         this.uiService.composeEntrySequence(digits)
@@ -69,10 +60,25 @@ class NumerologyDigitCalculatorService {
 
                     result = sum;
                     steps.push(step);
-                }
 
-                resolve({ result, steps });
-            });
-        });
+                    while (result.length > 1) {
+                        digits = this.toDeltaIntCollectionSequence(result);
+                        let { sum, step } = this.calculateSumAndStep(
+                            digits,
+                            this.uiService.composeEntrySequence(digits)
+                        );
+
+                        result = sum;
+                        steps.push(step);
+                    }
+
+                    resolve({ result, steps });
+                });
+
+                cancellationSignal?.addEventListener('abort', () => {
+                    reject(new Error('Operation aborted'));
+                }, { once: true });
+            }
+        );
     }
 }

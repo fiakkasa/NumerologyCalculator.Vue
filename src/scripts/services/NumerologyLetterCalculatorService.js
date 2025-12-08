@@ -49,8 +49,8 @@ class NumerologyLetterCalculatorService {
         return { sum, step };
     }
 
-    calculate(text) {
-        return new Promise(resolve => {
+    calculate(text, cancellationSignal) {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const uiService = this.uiService;
                 const letters = [];
@@ -99,6 +99,10 @@ class NumerologyLetterCalculatorService {
 
                 resolve({ result, steps });
             });
+
+            cancellationSignal?.addEventListener('abort', () => {
+                reject(new Error('Operation aborted'));
+            }, { once: true });
         });
     }
 }

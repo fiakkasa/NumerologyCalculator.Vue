@@ -1,7 +1,7 @@
 async function appRun() {
     const uiConfig = {
         MaxInputChars: 1000,
-        UiInputDelay: 600,
+        UiDefaultDelay: 250,
         CalculatorEquationSeparator: ' + ',
         CalculatorEquationCombinedItemTemplate: '({0}: {1})'
     };

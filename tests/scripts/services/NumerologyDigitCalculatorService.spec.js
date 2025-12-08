@@ -93,5 +93,20 @@ describe('NumerologyDigitCalculatorService', function () {
 
             expect(result.result).toBe('6');
         });
+
+        it('handles cancellation via AbortSignal', async function () {
+            const abortController = new AbortController();
+            const calculationPromise = service.calculate('123456789', abortController.signal);
+
+            abortController.abort();
+
+            try {
+                await calculationPromise;
+                fail('Expected calculation to be aborted');
+            } catch (error) {
+                expect(error).toBeDefined();
+                expect(error.message).toBe('Operation aborted');
+            }
+        });
     });
 });

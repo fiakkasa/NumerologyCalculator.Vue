@@ -31,7 +31,15 @@ class NumerologyUiService {
         return normalizedText;
     }
 
-    inputDelay() {
-        return new Promise(r => setTimeout(r, this.config.UiInputDelay));
+    delay(cancellationSignal) {
+        return new Promise(
+            (resolve, reject) => {
+                setTimeout(resolve, this.config.UiDefaultDelay);
+
+                cancellationSignal?.addEventListener('abort', () => {
+                    reject(new Error('Operation aborted'));
+                }, { once: true });
+            }
+        );
     }
 }

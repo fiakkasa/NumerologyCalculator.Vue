@@ -29,7 +29,7 @@ const DigitAdderComponent = {
                 if (value === this.currentText) return;
 
                 this.$emit('busy', true);
-                
+
                 if (this.abortController) {
                     this.abortController.abort();
                 }
@@ -48,28 +48,16 @@ const DigitAdderComponent = {
                     return;
                 }
 
-                const cancellation = new Promise((resolve, _) => {
-                    this.abortController.signal.addEventListener('abort', () => {
-                        resolve([]);
-                    }, { once: true });
-                });
-                const results = await Promise.race(
-                    [
-                        Promise.all(
-                            [
-                                this.digitCalculatorService.calculate(normalized),
-                                this.uiService.inputDelay()
-                            ]
-                        ),
-                        cancellation
-                    ]
-                );
+                const { result, steps, error } = await this.uiService.delay(this.abortController.signal)
+                    .then(() => this.digitCalculatorService.calculate(
+                        normalized,
+                        this.abortController.signal
+                    ))
+                    .catch(error => ({ error }));
 
-                if (!results.length) {
+                if (error) {
                     return;
                 }
-
-                const [{ result, steps }] = results;
 
                 this.result = result;
                 this.steps = steps;

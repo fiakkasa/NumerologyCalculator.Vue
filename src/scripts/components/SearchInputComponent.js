@@ -37,7 +37,7 @@ const SearchInputComponent = {
     methods: {
         update(value) {
             const text = value.length > this.uiConfig.MaxInputChars
-                ? value.substring(0, uiConfig.MaxInputChars)
+                ? value.substring(0, this.uiConfig.MaxInputChars)
                 : value;
             this.text = text;
             this.$emit('update:text', text);

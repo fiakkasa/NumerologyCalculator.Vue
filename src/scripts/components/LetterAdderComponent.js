@@ -26,7 +26,7 @@ const LetterAdderComponent = {
             immediate: true,
             async handler(value) {
                 if (value === this.currentText) return;
-                
+
                 this.$emit('busy', true);
 
                 if (this.abortController) {
@@ -46,28 +46,16 @@ const LetterAdderComponent = {
                     return;
                 }
 
-                const cancellation = new Promise((resolve, _) => {
-                    this.abortController.signal.addEventListener('abort', () => {
-                        resolve([]);
-                    }, { once: true });
-                });
-                const results = await Promise.race(
-                    [
-                        Promise.all(
-                            [
-                                this.letterCalculatorService.calculate(normalized),
-                                this.uiService.inputDelay()
-                            ]
-                        ),
-                        cancellation
-                    ]
-                );
+                const { result, steps, error } = await this.uiService.delay(this.abortController.signal)
+                    .then(() => this.letterCalculatorService.calculate(
+                        normalized,
+                        this.abortController.signal
+                    ))
+                    .catch(error => ({ error }));
 
-                if (!results.length) {
+                if (error) {
                     return;
                 }
-
-                const [{ result, steps }] = results;
 
                 this.result = result;
                 this.steps = steps;
