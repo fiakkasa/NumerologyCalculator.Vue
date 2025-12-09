@@ -16,7 +16,7 @@ describe('AdderTitleComponent', function () {
         const el = container.querySelector('.nc-title');
 
         expect(el).toBeTruthy();
-        expect(el.textContent.trim()).toBe('Hello World');
+        expect(el.textContent).toBe('Hello World');
 
         app.unmount();
         container.remove();

@@ -17,7 +17,7 @@ describe('SearchInputComponent', function () {
         app.config.globalProperties.$t = (k) => k;
 
         app.mount(container);
-        
+
         return { app, container };
     }
 
@@ -30,9 +30,10 @@ describe('SearchInputComponent', function () {
         await initialFocusDelay();
         await Vue.nextTick();
 
-        const input = container.querySelector('input.form-control');
-        expect(input).toBeTruthy();
-        expect(input.getAttribute('maxlength')).toBe('7');
+        const el = container.querySelector('input.form-control');
+
+        expect(el).toBeTruthy();
+        expect(el.getAttribute('maxlength')).toBe('7');
 
         app.unmount();
         container.remove();
@@ -46,14 +47,14 @@ describe('SearchInputComponent', function () {
         await initialFocusDelay();
         await Vue.nextTick();
 
-        const input = container.querySelector('input.form-control');
+        const el = container.querySelector('input.form-control');
 
         const text = 'abcdefg';
         for (const ch of text) {
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: ch, bubbles: true }));
-            input.value = input.value + ch;
-            input.dispatchEvent(new InputEvent('input', { data: ch, bubbles: true, inputType: 'insertText' }));
-            input.dispatchEvent(new KeyboardEvent('keyup', { key: ch, bubbles: true }));
+            el.dispatchEvent(new KeyboardEvent('keydown', { key: ch, bubbles: true }));
+            el.value = el.value + ch;
+            el.dispatchEvent(new InputEvent('input', { data: ch, bubbles: true, inputType: 'insertText' }));
+            el.dispatchEvent(new KeyboardEvent('keyup', { key: ch, bubbles: true }));
         }
 
         await Vue.nextTick();
@@ -73,15 +74,15 @@ describe('SearchInputComponent', function () {
         await initialFocusDelay();
         await Vue.nextTick();
 
-        const input = container.querySelector('input.form-control');
-        const btn = container.querySelector('button');
+        const inputEl = container.querySelector('input.form-control');
+        const btnEl = container.querySelector('button');
 
-        btn.click();
+        btnEl.click();
         await Vue.nextTick();
 
         expect(spy).toHaveBeenCalled();
         expect(spy.calls.mostRecent().args[0]).toBe('');
-        expect(document.activeElement).toBe(input);
+        expect(document.activeElement).toBe(inputEl);
 
         app.unmount();
         container.remove();
@@ -94,8 +95,8 @@ describe('SearchInputComponent', function () {
         await initialFocusDelay();
         await Vue.nextTick();
 
-        const input = container.querySelector('input.form-control');
-        expect(document.activeElement).toBe(input);
+        const el = container.querySelector('input.form-control');
+        expect(document.activeElement).toBe(el);
 
         app.unmount();
         container.remove();

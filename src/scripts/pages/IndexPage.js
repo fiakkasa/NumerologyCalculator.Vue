@@ -1,5 +1,4 @@
 const IndexPage = {
-    inject: ['uiService'],
     template: `
         <div class="container">
             <div class="search-input-container px-3 pt-4"

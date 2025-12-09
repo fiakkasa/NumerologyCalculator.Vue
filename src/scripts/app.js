@@ -39,12 +39,7 @@ async function appRun() {
     const linksService = new NumerologyLinksService(linksConfig);
 
     const app = Vue.createApp({
-        template: `<router-view />`,
-        setup() {
-            const { t } = VueI18n.useI18n();
-
-            return { t };
-        }
+        template: `<router-view />`
     });
 
     app.use(router);

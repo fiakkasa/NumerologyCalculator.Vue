@@ -36,30 +36,30 @@ describe('CalculationStepsComponent', function () {
         const { app, container } = mountComponent({ steps }, linksServiceMock);
         await Vue.nextTick();
 
-        const items = container.querySelectorAll('.card-body .d-flex.align-items-center');
-        expect(items.length).toBe(2);
+        const itemsEls = container.querySelectorAll('.card-body .d-flex.align-items-center');
+        expect(itemsEls.length).toBe(2);
 
-        const first = items[0];
-        expect(first.querySelector('.nc-count').textContent.trim()).toBe('1.');
-        const eqAnchor1 = first.querySelector('a.nc-equation');
-        expect(eqAnchor1).toBeTruthy();
-        expect(eqAnchor1.textContent.trim()).toBe('1+1');
-        expect(eqAnchor1.href).toContain('https://example.com/11');
+        const firstEl = itemsEls[0];
+        expect(firstEl.querySelector('.nc-count').textContent).toBe('1.');
+        const firstEquationEl = firstEl.querySelector('a.nc-equation');
+        expect(firstEquationEl).toBeTruthy();
+        expect(firstEquationEl.textContent).toBe('1+1');
+        expect(firstEquationEl.href).toContain('https://example.com/11');
 
-        const sumDiv1 = first.querySelector('div.nc-sum');
-        expect(sumDiv1).toBeTruthy();
-        expect(sumDiv1.textContent.trim()).toBe('2');
+        const firstSumEl = firstEl.querySelector('div.nc-sum');
+        expect(firstSumEl).toBeTruthy();
+        expect(firstSumEl.textContent).toBe('2');
 
-        const second = items[1];
-        expect(second.querySelector('.nc-count').textContent.trim()).toBe('2.');
-        const eqDiv2 = second.querySelector('div.nc-equation');
-        expect(eqDiv2).toBeTruthy();
-        expect(eqDiv2.textContent.trim()).toBe('2+2');
+        const secondEl = itemsEls[1];
+        expect(secondEl.querySelector('.nc-count').textContent).toBe('2.');
+        const secondEquationEl = secondEl.querySelector('div.nc-equation');
+        expect(secondEquationEl).toBeTruthy();
+        expect(secondEquationEl.textContent).toBe('2+2');
 
-        const sumAnchor2 = second.querySelector('a.nc-sum');
-        expect(sumAnchor2).toBeTruthy();
-        expect(sumAnchor2.textContent.trim()).toBe('4');
-        expect(sumAnchor2.href).toContain('https://example.com/4');
+        const secondSumEl = secondEl.querySelector('a.nc-sum');
+        expect(secondSumEl).toBeTruthy();
+        expect(secondSumEl.textContent).toBe('4');
+        expect(secondSumEl.href).toContain('https://example.com/4');
 
         app.unmount();
         container.remove();

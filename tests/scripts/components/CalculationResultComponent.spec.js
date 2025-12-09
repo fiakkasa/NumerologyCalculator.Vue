@@ -23,12 +23,12 @@ describe('CalculationResultComponent', function () {
         const { app, container } = mountComponent({ text: '42' }, linksServiceMock);
         await Vue.nextTick();
 
-        const anchor = container.querySelector('a.nc-result');
+        const el = container.querySelector('a.nc-result');
 
-        expect(anchor).toBeTruthy();
-        expect(anchor.textContent.trim()).toBe('42');
-        expect(anchor.getAttribute('target')).toBe('_blank');
-        expect(anchor.href).toContain(mockUrl);
+        expect(el).toBeTruthy();
+        expect(el.textContent).toBe('42');
+        expect(el.getAttribute('target')).toBe('_blank');
+        expect(el.href).toContain(mockUrl);
 
         app.unmount();
         container.remove();
@@ -42,12 +42,12 @@ describe('CalculationResultComponent', function () {
         const { app, container } = mountComponent({ text: 'NoLink' }, linksServiceMock);
         await Vue.nextTick();
 
-        const anchor = container.querySelector('a.nc-result');
-        expect(anchor).toBeNull();
+        const anchorEl = container.querySelector('a.nc-result');
+        expect(anchorEl).toBeNull();
 
-        const div = container.querySelector('div.nc-result');
-        expect(div).toBeTruthy();
-        expect(div.textContent.trim()).toBe('NoLink');
+        const divEl = container.querySelector('div.nc-result');
+        expect(divEl).toBeTruthy();
+        expect(divEl.textContent).toBe('NoLink');
 
         app.unmount();
         container.remove();
