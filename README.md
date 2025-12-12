@@ -4,6 +4,8 @@ Simple numerology calculator using Vue.JS!
 
 Ported from the original Blazor WASM implementation.
 
+It is also a single-spa example using a Vue JS app and pure browser ES modules (no bundler).
+
 ## Installation
 
 Ensure the latest NodeJS 24 LTS is available.
@@ -24,3 +26,4 @@ Run unit tests by running: `npm run tests`
 
 - https://github.com/fiakkasa/NumerologyCalculator
 - https://github.com/johnpapa/lite-server
+- https://single-spa.js.org
