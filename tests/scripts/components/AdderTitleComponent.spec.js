@@ -1,3 +1,5 @@
+import { AdderTitleComponent } from '../../../src/scripts/components/AdderTitleComponent.js';
+
 describe('AdderTitleComponent', function () {
     function mountComponent(props = {}) {
         const container = document.createElement('div');

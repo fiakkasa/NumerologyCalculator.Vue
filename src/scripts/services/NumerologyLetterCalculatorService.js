@@ -106,3 +106,5 @@ class NumerologyLetterCalculatorService {
         });
     }
 }
+
+export { NumerologyLetterCalculatorService };

@@ -1,3 +1,5 @@
+import { NumerologyLetterCalculatorService } from '../../../src/scripts/services/NumerologyLetterCalculatorService.js';
+
 describe('NumerologyLetterCalculatorService', function () {
     let uiServiceMock;
     let service;

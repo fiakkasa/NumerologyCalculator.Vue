@@ -48,3 +48,5 @@ const CalculationStepsComponent = {
         </div>
     `
 };
+
+export { CalculationStepsComponent };

@@ -11,3 +11,5 @@ class NumerologyLinksService {
         return this.config.Url.replace('{0}', value || '');
     }
 }
+
+export { NumerologyLinksService };

@@ -1,3 +1,5 @@
+import { DigitAdderComponent } from '../../../src/scripts/components/DigitAdderComponent.js';
+
 describe('DigitAdderComponent', function () {
     function delay() {
         return new Promise((resolve) => setTimeout(() => resolve(true), 100));

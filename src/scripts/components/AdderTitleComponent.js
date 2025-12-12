@@ -7,3 +7,5 @@ const AdderTitleComponent = {
         </div>
     `
 };
+
+export { AdderTitleComponent };

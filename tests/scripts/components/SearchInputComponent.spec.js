@@ -1,3 +1,5 @@
+import { SearchInputComponent } from '../../../src/scripts/components/SearchInputComponent.js';
+
 describe('SearchInputComponent', function () {
     function mountComponent(props = {}, uiConfigMock = {}, emitSpy = null) {
         const container = document.createElement('div');

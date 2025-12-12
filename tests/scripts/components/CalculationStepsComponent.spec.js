@@ -1,3 +1,5 @@
+import { CalculationStepsComponent } from '../../../src/scripts/components/CalculationStepsComponent.js';
+
 describe('CalculationStepsComponent', function () {
     function mountComponent(props = {}, linksServiceMock = {}) {
         const container = document.createElement('div');

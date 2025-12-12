@@ -43,3 +43,5 @@ class NumerologyUiService {
         );
     }
 }
+
+export { NumerologyUiService };

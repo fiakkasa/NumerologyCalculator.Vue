@@ -82,3 +82,5 @@ class NumerologyDigitCalculatorService {
         );
     }
 }
+
+export { NumerologyDigitCalculatorService };

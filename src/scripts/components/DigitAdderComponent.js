@@ -67,3 +67,5 @@ const DigitAdderComponent = {
         }
     }
 };
+
+export { DigitAdderComponent };

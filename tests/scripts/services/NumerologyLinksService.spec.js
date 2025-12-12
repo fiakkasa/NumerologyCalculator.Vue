@@ -1,3 +1,5 @@
+import { NumerologyLinksService } from '../../../src/scripts/services/NumerologyLinksService.js';
+
 describe('NumerologyLinksService', function () {
     const config = {
         Url: 'https://example.com/numerology/{0}'

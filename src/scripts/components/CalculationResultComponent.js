@@ -16,3 +16,5 @@ const CalculationResultComponent = {
         </div>
     `
 };
+
+export { CalculationResultComponent };

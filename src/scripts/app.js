@@ -1,20 +1,32 @@
-async function appRun() {
-    const uiConfig = {
-        MaxInputChars: 1000,
-        UiDefaultDelay: 250,
-        CalculatorEquationSeparator: ' + ',
-        CalculatorEquationCombinedItemTemplate: '({0}: {1})'
-    };
+import { AdderTitleComponent } from './components/AdderTitleComponent.js';
+import { CalculationResultComponent } from './components/CalculationResultComponent.js';
+import { CalculationStepsComponent } from './components/CalculationStepsComponent.js';
+import { DigitAdderComponent } from './components/DigitAdderComponent.js';
+import { LetterAdderComponent } from './components/LetterAdderComponent.js';
+import { SearchInputComponent } from './components/SearchInputComponent.js';
+import { IndexPage } from './pages/IndexPage.js';
+import { NumerologyUiService } from './services/NumerologyUiService.js';
+import { NumerologyDigitCalculatorService } from './services/NumerologyDigitCalculatorService.js';
+import { NumerologyLetterCalculatorService } from './services/NumerologyLetterCalculatorService.js';
+import { NumerologyLinksService } from './services/NumerologyLinksService.js';
 
-    const linksConfig = {
-        Url: 'https://number.academy/numerology/{0}'
-    };
+const uiConfig = {
+    MaxInputChars: 1000,
+    UiDefaultDelay: 250,
+    CalculatorEquationSeparator: ' + ',
+    CalculatorEquationCombinedItemTemplate: '({0}: {1})'
+};
 
-    const routes = [
-        { path: '/:value', component: IndexPage },
-        { path: '/', component: IndexPage }
-    ];
+const linksConfig = {
+    Url: 'https:/number.academy/numerology/{0}'
+};
 
+const routes = [
+    { path: '/:value', component: IndexPage },
+    { path: '/', component: IndexPage }
+];
+
+async function appInit() {
     const router = VueRouter.createRouter({
         history: VueRouter.createWebHashHistory(),
         routes
@@ -70,5 +82,7 @@ async function appRun() {
     i18n.global.setLocaleMessage(locale, messages);
     i18n.global.locale.value = locale;
 
-    app.mount('#app');
+    return app;
 }
+
+export { appInit };

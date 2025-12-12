@@ -1,3 +1,5 @@
+import { CalculationResultComponent } from '../../../src/scripts/components/CalculationResultComponent.js';
+
 describe('CalculationResultComponent', function () {
     function mountComponent(props = {}, linksServiceMock = {}) {
         const container = document.createElement('div');

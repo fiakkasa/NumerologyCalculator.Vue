@@ -79,7 +79,7 @@ const IndexPage = {
     },
     watch: {
         $route(to, from) {
-            if (to === this.text) {
+            if (to.params.value === this.text) {
                 return;
             }
 
@@ -103,3 +103,5 @@ const IndexPage = {
         }
     }
 };
+
+export { IndexPage };

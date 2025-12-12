@@ -1,3 +1,5 @@
+import { LetterAdderComponent } from '../../../src/scripts/components/LetterAdderComponent.js';
+
 describe('LetterAdderComponent', function () {
     function delay() {
         return new Promise((resolve) => setTimeout(() => resolve(true), 100));

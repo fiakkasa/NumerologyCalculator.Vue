@@ -7,7 +7,7 @@ const SearchInputComponent = {
         <input type="text"
                class="form-control"
                :placeholder="$t('enter_your_values')"
-               :value="text"
+               :value="inputText"
                ref="searchInput"
                :maxlength="uiConfig.MaxInputChars"
                @input="update($event.target.value)" />
@@ -27,19 +27,35 @@ const SearchInputComponent = {
         <span v-text="uiConfig.MaxInputChars"></span>
     </i>
     `,
+    data() {
+        return {
+            inputText: ''
+        };
+    },
     mounted() {
+        this.inputText = this.text || '';
+
         if (!this.focusOnLoad) {
             return;
         }
 
         setTimeout(() => this.$refs.searchInput.focus());
     },
+    watch: {
+        text(newValue, oldValue) {
+            if (newValue === this.inputText) {
+                return;
+            }
+
+            this.inputText = newValue || '';
+        }
+    },
     methods: {
         update(value) {
             const text = value.length > this.uiConfig.MaxInputChars
                 ? value.substring(0, this.uiConfig.MaxInputChars)
                 : value;
-            this.text = text;
+            this.inputText = text;
             this.$emit('update:text', text);
         },
         clear() {
@@ -48,3 +64,5 @@ const SearchInputComponent = {
         }
     }
 };
+
+export { SearchInputComponent };

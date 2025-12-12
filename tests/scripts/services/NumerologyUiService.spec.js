@@ -1,3 +1,5 @@
+import { NumerologyUiService } from '../../../src/scripts/services/NumerologyUiService.js';
+
 describe('NumerologyUiService', function () {
     const config = {
         CalculatorEquationSeparator: '+',

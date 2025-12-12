@@ -65,3 +65,5 @@ const LetterAdderComponent = {
         }
     }
 };
+
+export { LetterAdderComponent };

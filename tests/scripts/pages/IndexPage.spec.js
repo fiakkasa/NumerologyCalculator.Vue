@@ -1,3 +1,15 @@
+import { IndexPage } from '../../../src/scripts/pages/IndexPage.js';
+import { NumerologyUiService } from '../../../src/scripts/services/NumerologyUiService.js';
+import { NumerologyDigitCalculatorService } from '../../../src/scripts/services/NumerologyDigitCalculatorService.js';
+import { NumerologyLetterCalculatorService } from '../../../src/scripts/services/NumerologyLetterCalculatorService.js';
+import { NumerologyLinksService } from '../../../src/scripts/services/NumerologyLinksService.js';
+import { AdderTitleComponent } from '../../../src/scripts/components/AdderTitleComponent.js';
+import { CalculationResultComponent } from '../../../src/scripts/components/CalculationResultComponent.js';
+import { CalculationStepsComponent } from '../../../src/scripts/components/CalculationStepsComponent.js';
+import { DigitAdderComponent } from '../../../src/scripts/components/DigitAdderComponent.js';
+import { LetterAdderComponent } from '../../../src/scripts/components/LetterAdderComponent.js';
+import { SearchInputComponent } from '../../../src/scripts/components/SearchInputComponent.js';
+
 describe('IndexPage', function () {
     const uiConfig = {
         MaxInputChars: 1000,
