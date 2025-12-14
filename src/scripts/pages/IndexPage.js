@@ -1,8 +1,12 @@
 const IndexPage = {
     template: `
         <div class="container">
-            <div class="search-input-container px-3 pt-4"
-                 :style="{ 'margin-top': searchInputContainerMarginTop }"
+            <div class="nc-search-input-spacer"
+                 :style="{ 'padding-bottom': searchInputContainerSpace }">
+            </div>
+
+            <div class="nc-search-input-container position-relative px-3 pt-4"
+                :class="{ 'position-sticky sticky-top': trimmedText }"
                  ref="searchInputContainer">
                 <search-input :text="text"
                               :loading="loading"
@@ -57,9 +61,9 @@ const IndexPage = {
 
             return this.digitResult + this.letterResult;
         },
-        searchInputContainerMarginTop() {
+        searchInputContainerSpace() {
             if (this.trimmedText) {
-                return 'unset';
+                return '0';
             }
 
             let elementHeight = 0;
