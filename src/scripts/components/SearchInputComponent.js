@@ -1,7 +1,7 @@
 const SearchInputComponent = {
+    inject: ['uiConfig'],
     props: ['text', 'loading', 'focusOnLoad'],
     emits: ['update:text'],
-    inject: ['uiConfig'],
     template: `
     <div class="input-group">
         <input type="text"
