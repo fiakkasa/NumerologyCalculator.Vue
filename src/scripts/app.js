@@ -37,10 +37,10 @@ async function appInit() {
         fallbackLocale: 'en',
         messages: {
             en: {
-                enter_your_values: "Enter your values..",
-                digit_calculation: "Numeric Calculation",
-                letter_calculation: "Letter Calculation",
-                combined_calculation: "Combined Calculation"
+                enter_your_values: 'Enter your values..',
+                digit_calculation: 'Numeric Calculation',
+                letter_calculation: 'Letter Calculation',
+                combined_calculation: 'Combined Calculation'
             }
         }
     });
