@@ -11,14 +11,14 @@ import { NumerologyLetterCalculatorService } from './services/NumerologyLetterCa
 import { NumerologyLinksService } from './services/NumerologyLinksService.js';
 
 const uiConfig = {
-    MaxInputChars: 1000,
-    UiDefaultDelay: 250,
-    CalculatorEquationSeparator: ' + ',
-    CalculatorEquationCombinedItemTemplate: '({0}: {1})'
+    maxInputChars: 1000,
+    uiDefaultDelay: 250,
+    calculatorEquationSeparator: ' + ',
+    calculatorEquationCombinedItemTemplate: '({0}: {1})'
 };
 
 const linksConfig = {
-    Url: 'https:/number.academy/numerology/{0}'
+    url: 'https:/number.academy/numerology/{0}'
 };
 
 const routes = [

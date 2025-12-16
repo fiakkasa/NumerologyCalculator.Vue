@@ -2,10 +2,10 @@ import { NumerologyUiService } from '../../../src/scripts/services/NumerologyUiS
 
 describe('NumerologyUiService', function () {
     const config = {
-        CalculatorEquationSeparator: '+',
-        CalculatorEquationCombinedItemTemplate: '{0}:{1}',
-        MaxInputChars: 5,
-        UiDefaultDelay: 500
+        calculatorEquationSeparator: '+',
+        calculatorEquationCombinedItemTemplate: '{0}:{1}',
+        maxInputChars: 5,
+        uiDefaultDelay: 500
     };
     let service;
 

@@ -4,7 +4,7 @@ class NumerologyUiService {
     }
 
     composeEntryEquation(collection) {
-        return (collection || []).join(this.config.CalculatorEquationSeparator);
+        return (collection || []).join(this.config.calculatorEquationSeparator);
     }
 
     composeEntrySequence(collection) {
@@ -12,7 +12,7 @@ class NumerologyUiService {
     }
 
     composeCombinedItem(left, right) {
-        return this.config.CalculatorEquationCombinedItemTemplate
+        return this.config.calculatorEquationCombinedItemTemplate
             .replace('{0}', left)
             .replace('{1}', right);
     }
@@ -24,8 +24,8 @@ class NumerologyUiService {
             return '';
         }
 
-        if (normalizedText.length > this.config.MaxInputChars) {
-            return normalizedText.slice(0, this.config.MaxInputChars);
+        if (normalizedText.length > this.config.maxInputChars) {
+            return normalizedText.slice(0, this.config.maxInputChars);
         }
 
         return normalizedText;
@@ -34,7 +34,7 @@ class NumerologyUiService {
     delay(cancellationSignal) {
         return new Promise(
             (resolve, reject) => {
-                setTimeout(resolve, this.config.UiDefaultDelay);
+                setTimeout(resolve, this.config.uiDefaultDelay);
 
                 cancellationSignal?.addEventListener('abort', () => {
                     reject(new Error('Operation aborted'));

@@ -9,7 +9,7 @@ const SearchInputComponent = {
                :placeholder="$t('enter_your_values')"
                :value="inputText"
                ref="searchInput"
-               :maxlength="uiConfig.MaxInputChars"
+               :maxlength="uiConfig.maxInputChars"
                @input="update($event.target.value)" />
 
         <button class="btn btn-outline-secondary"
@@ -24,7 +24,7 @@ const SearchInputComponent = {
         <span class="flex-fill"></span>
         <span v-text="text?.length || '0'"></span>
         <span>/</span>
-        <span v-text="uiConfig.MaxInputChars"></span>
+        <span v-text="uiConfig.maxInputChars"></span>
     </i>
     `,
     data() {
@@ -52,8 +52,8 @@ const SearchInputComponent = {
     },
     methods: {
         update(value) {
-            const text = value.length > this.uiConfig.MaxInputChars
-                ? value.substring(0, this.uiConfig.MaxInputChars)
+            const text = value.length > this.uiConfig.maxInputChars
+                ? value.substring(0, this.uiConfig.maxInputChars)
                 : value;
             this.inputText = text;
             this.$emit('update:text', text);

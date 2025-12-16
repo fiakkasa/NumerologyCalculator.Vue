@@ -12,14 +12,14 @@ import { SearchInputComponent } from '../../../src/scripts/components/SearchInpu
 
 describe('IndexPage', function () {
     const uiConfig = {
-        MaxInputChars: 1000,
-        UiDefaultDelay: 100,
-        CalculatorEquationSeparator: ' + ',
-        CalculatorEquationCombinedItemTemplate: '({0}: {1})'
+        maxInputChars: 1000,
+        uiDefaultDelay: 100,
+        calculatorEquationSeparator: ' + ',
+        calculatorEquationCombinedItemTemplate: '({0}: {1})'
     };
 
     const linksConfig = {
-        Url: 'https://number.academy/numerology/{0}'
+        url: 'https://number.academy/numerology/{0}'
     };
 
     const routes = [
@@ -28,7 +28,7 @@ describe('IndexPage', function () {
     ];
 
     function delay(value) {
-        return new Promise((resolve) => setTimeout(() => resolve(true), value || uiConfig.UiDefaultDelay));
+        return new Promise((resolve) => setTimeout(() => resolve(true), value || uiConfig.uiDefaultDelay));
     }
 
     function mountPage(initialRouteValue = '/') {

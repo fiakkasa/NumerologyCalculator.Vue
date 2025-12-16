@@ -8,7 +8,7 @@ class NumerologyLinksService {
     }
 
     getUrl(value) {
-        return this.config.Url.replace('{0}', value || '');
+        return this.config.url.replace('{0}', value || '');
     }
 }
 

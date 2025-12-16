@@ -7,6 +7,7 @@
     <title>Numerology Calculator</title>
     <link href="style/loader.css" rel="stylesheet" />
     <link href="style/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="style/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
     <link href="style/app.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png" />
 </head>
@@ -24,12 +25,13 @@
 
     <script type="module">
         import { appInit } from './scripts/app.js';
+
         let _loaderTimeoutRef;
 
         async function setLoader(show) {
             const loader = document.getElementById('loader');
 
-            if(_loaderTimeoutRef) {
+            if (_loaderTimeoutRef) {
                 clearTimeout(_loaderTimeoutRef);
             }
 
@@ -45,19 +47,17 @@
 
         singleSpa.registerApplication(
             'numerology-calculator',
-            async () => {
-                const app = await appInit();
+            async () => ({
+                bootstrap: () => setLoader(true),
+                mount: async () => {
+                    const app = await appInit();
 
-                return {
-                    bootstrap: () => setLoader(true),
-                    mount: () => {
-                        app.mount('#app');
+                    app.mount('#app');
 
-                        return setLoader(false);
-                    },
-                    unmount: async () => app.unmount()
-                };
-            },
+                    return setLoader(false);
+                },
+                unmount: async () => { }
+            }),
             location => true
         );
 

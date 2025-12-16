@@ -2,7 +2,7 @@ import { NumerologyLinksService } from '../../../src/scripts/services/Numerology
 
 describe('NumerologyLinksService', function () {
     const config = {
-        Url: 'https://example.com/numerology/{0}'
+        url: 'https://example.com/numerology/{0}'
     };
     let service;
 
